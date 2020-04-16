@@ -3,7 +3,7 @@ import * as Knex from 'knex';
 export async function up(knex: Knex): Promise<any> {
   const exists = await knex.schema.hasTable('places');
 
-  if(!exists){
+  if (!exists) {
     return knex.schema.createTable('places', (tableBuilder) => {
       tableBuilder.increments();
       tableBuilder.string('name').notNullable();
@@ -12,7 +12,7 @@ export async function up(knex: Knex): Promise<any> {
       tableBuilder.string('state').notNullable();
       tableBuilder.timestamps();
 
-      knex.schema.alterTable('places', t => {
+      knex.schema.alterTable('places', (t) => {
         t.primary(['name', 'city', 'state']);
       });
     });
@@ -22,4 +22,3 @@ export async function up(knex: Knex): Promise<any> {
 export async function down(knex: Knex): Promise<any> {
   return knex.schema.dropTableIfExists('places');
 }
-
