@@ -24,9 +24,10 @@ module.exports = {
     'class-methods-use-this': 'off',
     'no-param-reassign': 'off',
     'camelcase': 'off',
-    'no-unused-vars': ['error', { 'argsIgnorePattern': 'next' }],
+    'no-unused-vars': 'off',
     'prettier/prettier': 'error',
     'import/extensions': 'off',
-    'no-undef': 'off'
+    'no-undef': 'off',
+    'import/no-unresolved': 'off'
   },
 };
