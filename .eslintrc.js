@@ -25,6 +25,8 @@ module.exports = {
     'no-param-reassign': 'off',
     'camelcase': 'off',
     'no-unused-vars': ['error', { 'argsIgnorePattern': 'next' }],
-    'prettier/prettier': 'error'
+    'prettier/prettier': 'error',
+    'import/extensions': 'off',
+    'no-undef': 'off'
   },
 };
