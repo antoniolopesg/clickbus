@@ -11,10 +11,13 @@ export async function up(knex: Knex): Promise<any> {
       tableBuilder.string('city').notNullable();
       tableBuilder.string('state').notNullable();
       tableBuilder.timestamps();
+
+      knex.schema.alterTable('places', t => {
+        t.primary(['name', 'city', 'state']);
+      });
     });
   }
 }
-
 
 export async function down(knex: Knex): Promise<any> {
   return knex.schema.dropTableIfExists('places');
