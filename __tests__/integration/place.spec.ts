@@ -10,6 +10,6 @@ describe('User', () => {
       state: 'PI',
     });
 
-    expect(response.body).toHaveProperty('id');
+    expect(response.status).toBe(201);
   });
 });

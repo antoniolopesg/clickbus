@@ -1,6 +1,6 @@
 import * as Knex from 'knex';
 
-export async function up(knex: Knex): Promise<any> {
+export async function up(knex: Knex) {
   const exists = await knex.schema.hasTable('places');
 
   if (!exists) {
@@ -10,15 +10,11 @@ export async function up(knex: Knex): Promise<any> {
       tableBuilder.string('slug').notNullable();
       tableBuilder.string('city').notNullable();
       tableBuilder.string('state').notNullable();
-      tableBuilder.timestamps();
-
-      knex.schema.alterTable('places', (t) => {
-        t.primary(['name', 'city', 'state']);
-      });
+      tableBuilder.timestamps(true, true);
     });
   }
 }
 
-export async function down(knex: Knex): Promise<any> {
+export async function down(knex: Knex) {
   return knex.schema.dropTableIfExists('places');
 }

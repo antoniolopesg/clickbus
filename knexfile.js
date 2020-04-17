@@ -20,12 +20,16 @@ module.exports = {
       tableName: 'knex_migrations',
       directory: resolve(__dirname, 'src', 'database', 'migrations'),
     },
-    useNullAsDefault: true,
   },
   test: {
     client: 'sqlite3',
     connection: {
       filename: './__tests__/database.sqlite',
     },
+    migrations: {
+      tableName: 'knex_migrations',
+      directory: resolve(__dirname, 'src', 'database', 'migrations'),
+    },
+    useNullAsDefault: false,
   },
 };

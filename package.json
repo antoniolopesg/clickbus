@@ -6,7 +6,7 @@
   "scripts": {
     "dev:server": "ts-node-dev --respawn --transpileOnly src/index.ts",
     "pretest": "NODE_ENV=test knex migrate:latest",
-    "test": "NODE_ENV=test jest",
+    "test": "NODE_ENV=test jest --detectOpenHandles",
     "posttest": "NODE_ENV=test knex migrate:rollback"
   },
   "devDependencies": {
