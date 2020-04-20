@@ -1,4 +1,5 @@
 import request from 'supertest';
+import faker from 'faker';
 import app from '../../src/app';
 import conn from '../../src/database/conn';
 
@@ -12,27 +13,27 @@ describe('Place', () => {
   });
 
   it('should be able to register', async () => {
-    const response = await request(app).post('/places').send({
-      name: 'Teresina Shopping',
-      city: 'teresina',
-      state: 'PI',
-    });
+    const place = {
+      name: faker.address.streetName(),
+      city: faker.address.city(),
+      state: faker.address.stateAbbr(),
+    };
+
+    const response = await request(app).post('/places').send(place);
 
     expect(response.status).toBe(201);
   });
 
-  it('should not be able to register duplicate places', async () => {
-    await request(app).post('/places').send({
-      name: 'Teresina Shopping',
-      city: 'teresina',
-      state: 'PI',
-    });
+  it('should not be able to register duplicated places', async () => {
+    const place = {
+      name: faker.address.streetName(),
+      city: faker.address.city(),
+      state: faker.address.stateAbbr(),
+    };
 
-    const response = await request(app).post('/places').send({
-      name: 'Teresina Shopping',
-      city: 'teresina',
-      state: 'PI',
-    });
+    await request(app).post('/places').send(place);
+
+    const response = await request(app).post('/places').send(place);
 
     expect(response.status).toBe(400);
   });
