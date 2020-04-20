@@ -3,6 +3,10 @@ import app from '../../src/app';
 import conn from '../../src/database/conn';
 
 describe('Place', () => {
+  afterAll(() => {
+    conn.destroy();
+  });
+
   beforeEach(async () => {
     await conn('places').truncate();
   });
