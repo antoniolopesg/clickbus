@@ -37,4 +37,30 @@ describe('Place', () => {
 
     expect(response.status).toBe(400);
   });
+
+  it('should be able to list places', async () => {
+    const place = {
+      id: 1,
+      name: faker.address.streetName(),
+      city: faker.address.city(),
+      state: faker.address.stateAbbr(),
+    };
+
+    const anotherPlace = {
+      id: 2,
+      name: faker.address.streetName(),
+      city: faker.address.city(),
+      state: faker.address.stateAbbr(),
+    };
+
+    await request(app).post('/places').send(place);
+
+    await request(app).post('/places').send(anotherPlace);
+
+    const response = await request(app).get('/places');
+
+    expect(response.body).toEqual(
+      expect.arrayContaining([place, anotherPlace])
+    );
+  });
 });

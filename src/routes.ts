@@ -14,6 +14,7 @@ router.get('/', (req: Request, res: Response) => {
   });
 });
 
+router.get('/places', PlaceController.index);
 router.post('/places', PlaceController.create);
 
 export default router;

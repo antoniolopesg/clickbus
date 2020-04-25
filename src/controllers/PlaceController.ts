@@ -2,6 +2,21 @@ import { Request, Response } from 'express';
 import conn from '../database/conn';
 
 class PlaceController {
+  async index(req: Request, res: Response) {
+    const { page = 1 } = req.query;
+
+    try {
+      const places = await conn('places')
+        .select(['id', 'name', 'city', 'state'])
+        .offset((page - 1) * 5)
+        .limit(5);
+
+      return res.json(places);
+    } catch (err) {
+      return res.status(500).json({ error: 'could not list the places' });
+    }
+  }
+
   async create(req: Request, res: Response) {
     const { name, city, state } = req.body;
 
@@ -27,7 +42,7 @@ class PlaceController {
 
       return res.status(201).json({ id });
     } catch (err) {
-      return res.status(500).json({ error: 'Internal Server Error' });
+      return res.status(500).json({ error: 'could not register the place' });
     }
   }
 }
