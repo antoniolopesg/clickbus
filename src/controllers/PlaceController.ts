@@ -3,13 +3,17 @@ import conn from '../database/conn';
 
 class PlaceController {
   async index(req: Request, res: Response) {
-    const { page = 1 } = req.query;
+    const { page = 1, name } = req.query;
 
     try {
-      const places = await conn('places')
+      const query = conn('places')
         .select(['id', 'name', 'city', 'state'])
         .offset((page - 1) * 5)
         .limit(5);
+
+      if (name) query.where('name', 'like', `%${name}%`);
+
+      const places = await query;
 
       return res.json(places);
     } catch (err) {
