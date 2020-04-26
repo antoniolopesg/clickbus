@@ -63,4 +63,16 @@ describe('Place', () => {
       expect.arrayContaining([place, anotherPlace])
     );
   });
+
+  it('should be able to get a specific place', async () => {
+    await request(app).post('/places').send({
+      name: faker.address.streetName(),
+      city: faker.address.city(),
+      state: faker.address.stateAbbr(),
+    });
+
+    const response = await request(app).get('/places/1');
+
+    expect(response.body).toHaveProperty('id');
+  });
 });

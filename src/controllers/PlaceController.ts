@@ -49,6 +49,26 @@ class PlaceController {
       return res.status(500).json({ error: 'could not register the place' });
     }
   }
+
+  async show(req: Request, res: Response) {
+    const { id } = req.params;
+
+    try {
+      const place = await conn('places')
+        .select(['id', 'name', 'city', 'state'])
+        .where('id', '=', id)
+        .first();
+
+      if (!place)
+        return res
+          .status(400)
+          .json({ error: 'no resource with specified id exists' });
+
+      return res.json(place);
+    } catch (err) {
+      return res.status(500).json({ error: 'could not get the place' });
+    }
+  }
 }
 
 export default new PlaceController();
