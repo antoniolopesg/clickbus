@@ -106,6 +106,28 @@ class PlaceController {
 
       return res.json(updatedPlace);
     } catch (err) {
+      return res.status(500).json({ err: 'could not get the place' });
+    }
+  }
+
+  async delete(req: Request, res: Response) {
+    const { id } = req.params;
+
+    try {
+      const place = await conn('places')
+        .select('id')
+        .where('id', '=', id)
+        .first();
+
+      if (!place)
+        return res
+          .status(400)
+          .json({ error: 'no resource with specified id exists' });
+
+      await conn('places').del().where('id', '=', id);
+
+      return res.status(204).send();
+    } catch (err) {
       return res.status(500).json(err);
     }
   }

@@ -18,5 +18,6 @@ router.get('/places', PlaceController.index);
 router.get('/places/:id', PlaceController.show);
 router.post('/places', PlaceController.create);
 router.put('/places/:id', PlaceController.update);
+router.delete('/places/:id', PlaceController.delete);
 
 export default router;

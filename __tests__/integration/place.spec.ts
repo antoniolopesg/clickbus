@@ -114,4 +114,21 @@ describe('Place', () => {
 
     expect(response.body).toHaveLength(1);
   });
+
+  it('should be able to delete a specific place', async () => {
+    await request(app).post('/places').send({
+      name: faker.address.streetName(),
+      city: faker.address.city(),
+      state: faker.address.stateAbbr(),
+    });
+
+    const response = await request(app).delete('/places/1');
+
+    expect(response.status).toBe(204);
+  });
+
+  it('cannot be able to delete places that have not been registered', async () => {
+    const response = await request(app).delete('/places/400');
+    expect(response.status).toBe(400);
+  });
 });
