@@ -1,9 +1,17 @@
 import knex from 'knex';
 import databaseConfig from '../../knexfile';
 
-const databaseEnv =
-  process.env.NODE_ENV !== 'test'
-    ? databaseConfig.development
-    : databaseConfig.test;
+let databaseEnv = null;
+
+switch (process.env.NODE_ENV) {
+  case 'development':
+    databaseEnv = databaseConfig.development;
+    break;
+  case 'test':
+    databaseEnv = databaseConfig.test;
+    break;
+  default:
+    databaseEnv = databaseConfig.production;
+}
 
 export default knex(databaseEnv);
