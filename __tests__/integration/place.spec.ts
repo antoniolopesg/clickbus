@@ -75,4 +75,20 @@ describe('Place', () => {
 
     expect(response.body).toHaveProperty('id');
   });
+
+  it('should be able to update already registered places', async () => {
+    await request(app).post('/places').send({
+      name: faker.address.streetName(),
+      city: faker.address.city(),
+      state: faker.address.stateAbbr(),
+    });
+
+    const response = await request(app).put('/places/1').send({
+      name: faker.address.streetName(),
+      city: faker.address.city(),
+      state: faker.address.stateAbbr(),
+    });
+
+    expect(response.status).toBe(200);
+  });
 });

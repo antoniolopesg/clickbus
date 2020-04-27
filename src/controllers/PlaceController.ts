@@ -69,6 +69,46 @@ class PlaceController {
       return res.status(500).json({ error: 'could not get the place' });
     }
   }
+
+  async update(req: Request, res: Response) {
+    const { id } = req.params;
+
+    const { name, city, state } = req.body;
+
+    try {
+      const place = await conn('places')
+        .select('id')
+        .where('id', '=', id)
+        .first();
+
+      if (!place)
+        return res
+          .status(400)
+          .json({ error: 'no resource with specified id exists' });
+
+      const hasPlace = await conn('places')
+        .select('id')
+        .where('name', name)
+        .andWhere('city', city)
+        .andWhere('state', state)
+        .first();
+
+      if (hasPlace && hasPlace.id !== place.id) {
+        return res
+          .status(400)
+          .json({ error: 'this place has already been registered' });
+      }
+
+      const updatedPlace = await conn('places')
+        .where('id', '=', id)
+        .update({ name, city, state, updated_at: new Date() })
+        .returning('*');
+
+      return res.json(updatedPlace);
+    } catch (err) {
+      return res.status(500).json(err);
+    }
+  }
 }
 
 export default new PlaceController();
