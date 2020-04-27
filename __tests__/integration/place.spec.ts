@@ -91,4 +91,27 @@ describe('Place', () => {
 
     expect(response.status).toBe(200);
   });
+
+  it('should be able list places filtering by name', async () => {
+    const place = {
+      id: 1,
+      name: 'Teresina Shopping',
+      city: 'Teresina',
+      state: 'PI',
+    };
+
+    const anotherPlace = {
+      id: 2,
+      name: 'Cocais Shopping',
+      city: 'Timon',
+      state: 'MA',
+    };
+
+    await request(app).post('/places').send(place);
+    await request(app).post('/places').send(anotherPlace);
+
+    const response = await request(app).get('/places?name=sina');
+
+    expect(response.body).toHaveLength(1);
+  });
 });
