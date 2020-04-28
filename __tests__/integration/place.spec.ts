@@ -4,12 +4,13 @@ import app from '../../src/app';
 import conn from '../../src/database/conn';
 
 describe('Place', () => {
-  afterAll(() => {
-    conn.destroy();
+  afterAll(async () => {
+    await conn.destroy();
   });
 
   beforeEach(async () => {
-    await conn('places').truncate();
+    await conn.migrate.rollback();
+    await conn.migrate.latest();
   });
 
   it('should be able to register', async () => {
