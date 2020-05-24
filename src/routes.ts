@@ -1,4 +1,5 @@
 import { Router, Request, Response } from 'express';
+import { celebrate, Segments, Joi } from 'celebrate';
 
 import PlaceController from './controllers/PlaceController';
 
@@ -14,10 +15,42 @@ router.get('/', (req: Request, res: Response) => {
   });
 });
 
-router.get('/places', PlaceController.index);
-router.get('/places/:id', PlaceController.show);
-router.post('/places', PlaceController.create);
-router.put('/places/:id', PlaceController.update);
-router.delete('/places/:id', PlaceController.delete);
+router.get('/places',  celebrate({
+  [Segments.QUERY]: Joi.object().keys({
+    page: Joi.number().integer(),
+    name: Joi.string().min(1)
+  })
+}), PlaceController.index);
+
+router.get('/places/:id', celebrate({
+  [Segments.PARAMS]: Joi.object().keys({
+    id: Joi.number().integer().required()
+  })
+}), PlaceController.show);
+
+router.post('/places', celebrate({
+  [Segments.BODY]: Joi.object().keys({
+    name: Joi.string().required().min(1),
+    city: Joi.string().required().min(1),
+    state: Joi.string().required().min(2).max(2)
+  })
+}),PlaceController.create);
+
+router.put('/places/:id', celebrate({
+  [Segments.PARAMS]: Joi.object().keys({
+    id: Joi.number().integer()
+  }),
+  [Segments.BODY]: Joi.object().keys({
+    name: Joi.string().min(1),
+    city: Joi.string().min(1),
+    state: Joi.string().min(2).max(2)
+  })
+}), PlaceController.update);
+
+router.delete('/places/:id', celebrate({
+  [Segments.PARAMS]: Joi.object().keys({
+    id: Joi.number().integer()
+  })
+}), PlaceController.delete);
 
 export default router;

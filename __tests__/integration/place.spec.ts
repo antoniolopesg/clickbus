@@ -41,27 +41,25 @@ describe('Place', () => {
 
   it('should be able to list places', async () => {
     const place = {
-      id: 1,
       name: address.streetName(),
       city: address.city(),
       state: address.stateAbbr(),
     };
 
     const anotherPlace = {
-      id: 2,
       name: address.streetName(),
       city: address.city(),
       state: address.stateAbbr(),
     };
 
-    await request(app).post('/places').send(place);
+    const resp = await request(app).post('/places').send(place);
 
     await request(app).post('/places').send(anotherPlace);
 
     const response = await request(app).get('/places');
 
     expect(response.body).toEqual(
-      expect.arrayContaining([place, anotherPlace])
+      expect.arrayContaining([{id: 1, ...place}, { id: 2, ...anotherPlace }])
     );
   });
 
@@ -95,14 +93,12 @@ describe('Place', () => {
 
   it('should be able list places filtering by name', async () => {
     const place = {
-      id: 1,
       name: 'Teresina Shopping',
       city: 'Teresina',
       state: 'PI',
     };
 
     const anotherPlace = {
-      id: 2,
       name: 'Cocais Shopping',
       city: 'Timon',
       state: 'MA',
