@@ -1,5 +1,5 @@
 import request from 'supertest';
-import faker from 'faker';
+import { address } from 'faker';
 import app from '../../src/app';
 import conn from '../../src/database/conn';
 
@@ -15,9 +15,9 @@ describe('Place', () => {
 
   it('should be able to register', async () => {
     const place = {
-      name: faker.address.streetName(),
-      city: faker.address.city(),
-      state: faker.address.stateAbbr(),
+      name: address.streetName(),
+      city: address.city(),
+      state: address.stateAbbr(),
     };
 
     const response = await request(app).post('/places').send(place);
@@ -27,9 +27,9 @@ describe('Place', () => {
 
   it('should not be able to register duplicated places', async () => {
     const place = {
-      name: faker.address.streetName(),
-      city: faker.address.city(),
-      state: faker.address.stateAbbr(),
+      name: address.streetName(),
+      city: address.city(),
+      state: address.stateAbbr(),
     };
 
     await request(app).post('/places').send(place);
@@ -42,16 +42,16 @@ describe('Place', () => {
   it('should be able to list places', async () => {
     const place = {
       id: 1,
-      name: faker.address.streetName(),
-      city: faker.address.city(),
-      state: faker.address.stateAbbr(),
+      name: address.streetName(),
+      city: address.city(),
+      state: address.stateAbbr(),
     };
 
     const anotherPlace = {
       id: 2,
-      name: faker.address.streetName(),
-      city: faker.address.city(),
-      state: faker.address.stateAbbr(),
+      name: address.streetName(),
+      city: address.city(),
+      state: address.stateAbbr(),
     };
 
     await request(app).post('/places').send(place);
@@ -67,9 +67,9 @@ describe('Place', () => {
 
   it('should be able to get a specific place', async () => {
     await request(app).post('/places').send({
-      name: faker.address.streetName(),
-      city: faker.address.city(),
-      state: faker.address.stateAbbr(),
+      name: address.streetName(),
+      city: address.city(),
+      state: address.stateAbbr(),
     });
 
     const response = await request(app).get('/places/1');
@@ -79,15 +79,15 @@ describe('Place', () => {
 
   it('should be able to update already registered places', async () => {
     await request(app).post('/places').send({
-      name: faker.address.streetName(),
-      city: faker.address.city(),
-      state: faker.address.stateAbbr(),
+      name: address.streetName(),
+      city: address.city(),
+      state: address.stateAbbr(),
     });
 
     const response = await request(app).put('/places/1').send({
-      name: faker.address.streetName(),
-      city: faker.address.city(),
-      state: faker.address.stateAbbr(),
+      name: address.streetName(),
+      city: address.city(),
+      state: address.stateAbbr(),
     });
 
     expect(response.status).toBe(200);
@@ -118,9 +118,9 @@ describe('Place', () => {
 
   it('should be able to delete a specific place', async () => {
     await request(app).post('/places').send({
-      name: faker.address.streetName(),
-      city: faker.address.city(),
-      state: faker.address.stateAbbr(),
+      name: address.streetName(),
+      city: address.city(),
+      state: address.stateAbbr(),
     });
 
     const response = await request(app).delete('/places/1');
