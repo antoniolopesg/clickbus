@@ -7,7 +7,10 @@
     "dev:server": "ts-node-dev --respawn --transpileOnly src/index.ts",
     "test": "NODE_ENV=test jest",
     "lint": "eslint ./src/**/*.ts",
-    "ci": "yarn lint && yarn test"
+    "ci": "yarn lint && yarn test",
+    "prebuild": "rm -rf build",
+    "build": "tsc",
+    "start": "node build/src/index.js"
   },
   "devDependencies": {
     "@types/express": "^4.17.4",
@@ -35,6 +38,7 @@
     "typescript": "^3.8.0"
   },
   "dependencies": {
+    "@types/hapi__joi": "^17.1.0",
     "celebrate": "^12.1.1",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
