@@ -2,6 +2,7 @@ module.exports = {
   env: {
     es6: true,
     node: true,
+    jest: true,
   },
   extends: ['standard', 'prettier'],
   globals: {
@@ -17,5 +18,6 @@ module.exports = {
   rules: {
     'prettier/prettier': 'error',
     'no-unused-vars': 'off',
+    'no-useless-constructor': 'off',
   },
 };
