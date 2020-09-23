@@ -5,7 +5,7 @@
   "license": "MIT",
   "scripts": {
     "dev:server": "ts-node-dev --respawn --transpileOnly src/index.ts",
-    "test": "NODE_ENV=test jest",
+    "test": "set NODE_ENV=test jest",
     "lint": "eslint ./src/**/*.ts",
     "ci": "yarn lint && yarn test",
     "prebuild": "rm -rf build",
