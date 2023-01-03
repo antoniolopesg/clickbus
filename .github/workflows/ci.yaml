@@ -10,7 +10,6 @@ jobs:
           node-version: 18
       - run: yarn
       - run: yarn build
-      - run: yarn start
   test:
     runs-on: ubuntu-latest
     steps:
