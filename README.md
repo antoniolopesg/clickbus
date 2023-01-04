@@ -12,3 +12,5 @@ A place must have the following fields:
 - state
 - created at
 - updated at
+
+Made with Node.js
