@@ -14,3 +14,5 @@ A place must have the following fields:
 - updated at
 
 Made with Node.js :)
+
+Feel safe to contribute
