@@ -13,4 +13,4 @@ A place must have the following fields:
 - created at
 - updated at
 
-Made with Node.js
+Made with Node.js :)
