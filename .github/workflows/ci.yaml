@@ -6,25 +6,19 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node: ['18.0.0', '17.0.0']
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
-          node-version: ${{ matrix.node }}
+          node-version: 18.0.0
       - run: yarn
       - run: yarn build
   test:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node: ['18.0.0', '17.0.0']
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
-          node-version: ${{ matrix.node }}
+          node-version: 18.0.0
       - run: yarn
       - run: yarn test
