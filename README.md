@@ -1,9 +1,9 @@
 # What to do
 Create a simple API to manage places (CRUD). This API should allow to:
-- Create a place
-- Edit a place
-- Get a specific place
-- List places and filter them by name
+- Create a place;
+- Edit a place;
+- Get a specific place;
+- List places and filter them by name.
 
 A place must have the following fields:
 - name
@@ -12,3 +12,7 @@ A place must have the following fields:
 - state
 - created at
 - updated at
+
+Made with Node.js :)
+
+Feel safe to contribute
